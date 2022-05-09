@@ -1,19 +1,20 @@
-var net = require('net');
-var TCP2STMCommands = require('../../src/script/TCP2STMCommands.js');
+import net from 'net';
+import TCP2STMCommands from '../../src/script/TCP2STMCommands.js';
 
 var clients = [];
 
-module.exports = {
+export default {
 	startServer : function(){
 		var server = net.createServer(function(client){
+			console.log("누군가 들어왔다.");
 			
 			clients.push(client);
-			console.log(clients.length);
+			//console.log(clients.length);
 			
 			client.on('data', function(data){
 				//클라이언트가 데이터를 받음📋
 				
-				console.log('Client sent : ' + data.toString());
+				//console.log('Client sent : ' + data.toString());
 				//client.write("HELLO WORLD");
 				
 				TCP2STMCommands.callCommand(client, data.toString());
@@ -46,7 +47,7 @@ module.exports = {
 var internalFunction = {
 	clearClients : function(thisClients){
 		//연결이 끊긴 소켓을 제거
-		for(i=0;i<thisClients.length;i++){
+		for(var i=0;i<thisClients.length;i++){
 			if(thisClients[i]._readableState.ended){
 				thisClients.splice(i, 1);
 			}
