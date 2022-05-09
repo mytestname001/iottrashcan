@@ -51,7 +51,7 @@ export default {
 						let _token = Tools.TokenGenerator.genToken(8);
 						
 						client.write("TOK " + _token +"\r\n");
-						//console.log("시발 누가 맞췄어");
+						//console.log("unknown changes");
 						
 						if(localDB.db().data.STM[args[1]] === undefined){
 							//처음 나타난 장치
