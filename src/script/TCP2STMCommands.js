@@ -11,11 +11,27 @@ export default {
 		//app passcode
 		//TOK
 		
+		let _cmd;
+		let _args;
+		let _res;
+		
 		console.log(commandString);
 		
 		let _array = InternalFunction.checkSyntax(commandString);
-		let _cmd = _array[0];
-		let _args = _array[1];
+		
+		if(_array[0]){
+			//함수가 1을 받아온 경우(파라메터가 여러개);
+			_cmd = _array[1];
+			_args = _array[2];
+		}else{
+			//함수가 0을 받아온 경우(파라메터가 없는 커맨드)
+			
+			_cmd = _array[1];
+			_args = "error";
+		}
+		
+		//let _cmd = _array[0];
+		//let _args = _array[1];
 		
 		
 		let args = _args;
@@ -23,15 +39,18 @@ export default {
 		
 		switch(resultString){
 			case 'hello':{
-				client.write("helya!\r\n");
+				//client.write("helya!\r\n");
+				_res = "helya!";
 				break;
 			}
 			case 'bye' : {
-				client.write("seeya\r\n");
+				//client.write("seeya\r\n");
+				_res = "seeya";
 				break;
 			}
 			case 'whoareu?' : {
-				client.write("monster\r\n");
+				//client.write("monster\r\n");
+				_res = "monster";
 				break;
 			}
 			case 'app' : {
@@ -50,7 +69,8 @@ export default {
 						
 						let _token = Tools.TokenGenerator.genToken(8);
 						
-						client.write("TOK " + _token +"\r\n");
+						//client.write("TOK " + _token +"\r\n");
+						_res = "TOK " + _token;
 						//console.log("unknown changes");
 						
 						if(localDB.db().data.STM[args[1]] === undefined){
@@ -69,19 +89,22 @@ export default {
 						
 					}else{
 						//비밀번호가 맞지 않음
-						client.write("RES NE\r\n");
+						//client.write("RES NE\r\n");
+						_res = "RES NE";
 					}
 				}else{
 				
 					//인자가 이상함
-					client.write("RES UK\r\n");
+					//client.write("RES UK\r\n");
+					_res = "RES UK";
 				}
 				
 				//client.write(localDB.db().data.newgod+"\r\n");
 				break;
 			}
 			case 'hel' : {
-				client.write("RES OK\r\n");
+				//client.write("RES OK\r\n");
+				_res = "RES OK";
 				break;
 			}
 			case 'whe' : {
@@ -96,28 +119,94 @@ export default {
 					//whe
 					
 					let _unknown = Object.keys(localDB.db().data.STM);
-					
+					let isFound = false;
 					//console.log(_unknown);
 					
 					for(var i = 0; i < _unknown.length; i++){
 						//console.log( );
 						if(localDB.db().data.STM[Object.keys(localDB.db().data.STM)[i]]._token == args[0]){
-							client.write("LOC " + localDB.db().data.STM[Object.keys(localDB.db().data.STM)[i]].location + "\r\n");
+							//client.write("LOC " + localDB.db().data.STM[Object.keys(localDB.db().data.STM)[i]].location + "\r\n");
+							_res = "LOC " + localDB.db().data.STM[Object.keys(localDB.db().data.STM)[i]].location;
+							isFound = true;
+							break;
 						}
 					}
+					
+					if(!isFound){
+						//client.write("RES UD\r\n")
+						_res = "RES UD";
+					}
 				}else{
-					client.write("RES UK\r\n");
+					//client.write("RES UK\r\n");
+					_res = "RES UK";
 				}
 				
 				//client.write("LOC ???\r\n");
 				
 				break;
 			}
+			case 'cap' : {
+				/*
+					용량을 받는 커맨드. STM 클라이언트가 호출하며 입력받은 용량을 DB에 저장한다
+					args에는 token과 capacity가 필요
+				*/
+				
+				if(args.length != 2){
+					//client.write("RES UK\r\n");
+					_res = "RES UK";
+				}else{
+					let STMDevices = Object.keys(localDB.db().data.STM);
+					let isFound2 = false;
+					
+					let target;
+					
+					for(let i = 0; i < STMDevices.length; i++){
+						if(localDB.db().data.STM[Object.keys(localDB.db().data.STM)[i]]._token == args[0]){
+							target = localDB.db().data.STM[Object.keys(localDB.db().data.STM)[i]];
+							isFound2 = true;
+							
+							break;
+						}
+					}
+					
+					
+					if(isFound2){
+						//입력받은 토큰을 가진 계정이 발견되었을 때
+						
+						if(!isNaN(args[1])){
+							//숫자가 맞다면 false
+							target.capacity = args[1];
+							localDB.dbwrite();
+							//client.write("CAP " + args[1] + "\r\n");
+							_res = "CAP " + args[1];
+							
+						}else{
+							
+							//client.write("RES ER\r\n");
+							_res = "RES ER";
+						}
+					}else{
+						//client.write("RES UK\r\n");
+						_res = "RES UK";
+					}
+				}
+				
+				
+				break;
+			}
+			case 'error' : {
+				//client.write("hello king god\r\n");
+				_res = "RES ARR";
+				break;
+			}
 			default : {
-				client.write("RES UK\r\n");
+				//client.write("RES UK\r\n");
+				_res = "RES UK";
 				break;
 			}
 		}
+		
+		return _res;
 	}
 }
 
@@ -136,14 +225,17 @@ var InternalFunction = {
 				let args = localCommandString.split(" ");
 				args.splice(0, 1);
 				
-				return [command, args];
+				return [1, command, args];
 				
 			}else{
 				//single command
-				return localCommandString;
+				return [0, localCommandString];
 			}
 		}else{
-			return "error"
+			return [0, "error"];
 		}
+	},
+	sendCommand : function(thisString){
+		
 	}
 }

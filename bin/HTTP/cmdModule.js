@@ -11,6 +11,7 @@ module.exports = {
 		
 		try{
 			return this.cmList[thisString](thisRecog[thisString]);
+			//커맨드 호출
 		}catch(e){
 			
 		}

@@ -19,5 +19,8 @@ export default {
 	},
 	db : function(){
 		return db;
-	}
+	},
+	checkInitialError : function(){
+		return "undo";
+	},
 }

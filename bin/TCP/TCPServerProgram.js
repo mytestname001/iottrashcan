@@ -17,7 +17,8 @@ export default {
 				//console.log('Client sent : ' + data.toString());
 				//client.write("HELLO WORLD");
 				
-				TCP2STMCommands.callCommand(client, data.toString());
+				let resdata = TCP2STMCommands.callCommand(client, data.toString());
+				client.write(resdata + " EOF\r\n");
 				
 			});
 			
@@ -33,12 +34,12 @@ export default {
 				internalFunction.clearClients(clients);
 			});
 			
-			client.write("CON OK\r\n");
+			client.write("CON OK EOF\r\n");
 			
 		}); //createServer 코드 종료
 		
 		server.listen(8107, function(){
-			console.log('서버가 연결을 기다리는중.');
+			console.log('TCP 서버가 연결을 기다리는중...');
 		});
 	} //서버 시작 객체 끝
 } //모듈 출력 끝

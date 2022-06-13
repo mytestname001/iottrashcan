@@ -3,16 +3,14 @@
 	서버 로딩 파트
 	1.HTTP 서버
 	2.TCP 서버
+	3.Tools 스크립트
 
 */
 //var TCPServerProgram = require('./bin/TCP/TCPServerProgram.js');
 //var Tools = require('./src/script/tools/Tools.js');
 //import ESMtest from './src/script/ESMtest.js';
 
-var invisibleVariable = {
-	"kinggod" : "newgod"
-}
-
+import HTTPServerProgram from './bin/HTTP/HTTPServerProgram.js';
 import TCPServerProgram from './bin/TCP/TCPServerProgram.js';
 import Tools from './src/script/tools/Tools.js';
 /*
@@ -35,25 +33,16 @@ main();
 */
 
 async function main(){
-	//console.log(invisibleVariable.kinggod);
 	console.log(Tools.TokenGenerator.genToken(16));
 	
 	
-	
-	
 	let localDB = Tools.DatabaseAccessor;
-	
-	/*
-	await localDB.dbread();
-	await console.log(Tools.DatabaseAccessor.db());
-	//Tools.DatabaseAccessor.db().data ||= {posts:["world","define"],newgod:"king"};
-	await console.log(localDB.db().data.passcode = "1q2w3e4r!@");
-	await localDB.dbwrite();
-	*/
+	localDB.checkInitialError();
 	
 	
 	
 	TCPServerProgram.startServer();
+	HTTPServerProgram.startServer();
 	return 0;
 }
 
