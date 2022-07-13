@@ -2,24 +2,24 @@
   "passcode": "1q2w3e4r!@",
   "STM": {
     "A32bC45": {
-      "_token": "XskZzT@2",
+      "_token": "q627l#Z7",
       "location": "1f2",
-      "capacity": 3.14
+      "capacity": "100"
     },
     "QWETTY": {
-      "_token": "5#i*0L#4",
+      "_token": "PTn54PTM",
       "location": "3f5",
-      "capacity": 3.14
+      "capacity": "3"
     },
     "UNKWON": {
-      "_token": "v0ge6ar!",
+      "_token": "lcSj1INC",
       "location": "2f4",
-      "capacity": 3.14
+      "capacity": "100"
     },
     "KINGGODWORLD": {
-      "_token": "E0JE%$c2",
+      "_token": "pz(g9pf0",
       "location": "4f41",
-      "capacity": 3.14
+      "capacity": "3"
     },
     "": {
       "_token": "#(3pP9lM",
@@ -27,22 +27,22 @@
       "capacity": 3.14
     },
     "strangeSTM": {
-      "_token": "Cc^m%8Q(",
+      "_token": "Q@Bo4Ijg",
       "location": "1f10",
-      "capacity": "66"
+      "capacity": "3"
     },
     "strangeStrashcan": {
-      "_token": "Lvr$)#Yl",
-      "location": "helloworld",
-      "capacity": "17"
+      "_token": "!70#er9#",
+      "location": "fuck",
+      "capacity": "3"
     },
     "HotSummer": {
-      "_token": "GwSRlby!",
+      "_token": "ayukm9(u",
       "location": "unknown",
-      "capacity": 3.14
+      "capacity": "100"
     },
     "ColdSummer": {
-      "_token": "p8YvMYi4",
+      "_token": "AMRGZbyR",
       "location": "unknown",
       "capacity": 3.14
     }
@@ -50,7 +50,7 @@
   "Mobile": {
     "hellogod1": {
       "password": "helloaas",
-      "token": "%ce(0)1Wc30oel3*"
+      "token": "57Sanv%#7lM2FvUX"
     },
     "myfirstaccount": {
       "password": "myfirstpassword",
