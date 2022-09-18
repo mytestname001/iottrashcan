@@ -6,7 +6,20 @@ import fs from 'fs';
 export default {
 	startServer : function(){
 		var server = http.createServer( async (req, res)=>{
-			res.writeHead(200);
+			
+			/*CORS 해결용 외부 XMLRequest 수락 헤더*/
+			
+      var headers = {};
+      // IE8 does not allow domains to be specified, just the *
+      // headers["Access-Control-Allow-Origin"] = req.headers.origin;
+      headers["Access-Control-Allow-Origin"] = "https://webdev-dpjhc.run.goorm.io";
+      headers["Access-Control-Allow-Methods"] = "POST";
+      headers["Access-Control-Allow-Credentials"] = false;
+      headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+      headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+      res.writeHead(200, headers);
+			
+			/*CORS 해결용 외부 XMLRequest 수락 헤더*/
 			
 			let url = req.url;
 			
