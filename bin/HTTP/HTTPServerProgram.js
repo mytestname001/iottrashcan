@@ -28,6 +28,9 @@ export default {
 			}else{
 				
 				if(url == "/db"){
+					
+					console.log(process.cwd());
+					
 					res.writeHead(200, {'Content-Type':'text/plain; charset=utf-8'});
 					res.end(fs.readFileSync("./src/database/db.json"));
 				}else if(url == "/code"){
